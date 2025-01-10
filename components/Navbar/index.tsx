@@ -7,7 +7,7 @@ import NavMenu from "./sub/navMenu";
 import { cn } from "@/utils";
 
 export default function Navbar() {
-  const [isNavOpen, setIsNavOpen] = useState(true);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>
