@@ -1,8 +1,8 @@
 button {
   &.primary {
-    @apply py-2.5 px-4 bg-pri capitalize font-medium rounded-lg text-lg;
+    @apply py-2.5 px-4 bg-pri hover:bg-priDark capitalize font-medium rounded-lg text-lg duration-300 hover:text-white;
   }
   &.secondary {
-    @apply py-2.5 px-4 bg-grayLight capitalize font-medium rounded-lg text-lg;
+    @apply py-2.5 px-4 bg-grayLight hover:bg-gray duration-300 capitalize font-medium rounded-lg text-lg;
   }
 }

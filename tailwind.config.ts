@@ -13,6 +13,7 @@ const config: Config = {
       },
       colors: {
         pri: "#1ABC9C",
+        priDark: "#0a392f",
         bg: "#ECF0F1",
         vBlack: "#1A1A1A",
         gray: "#BDC3C7",
