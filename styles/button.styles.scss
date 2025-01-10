@@ -1,0 +1,8 @@
+button {
+  &.primary {
+    @apply py-2.5 px-4 bg-pri capitalize font-medium rounded-lg text-lg;
+  }
+  &.secondary {
+    @apply py-2.5 px-4 bg-grayLight capitalize font-medium rounded-lg text-lg;
+  }
+}

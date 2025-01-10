@@ -8,9 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        space: "var(--space-grotesk)",
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        pri: "#1ABC9C",
+        bg: "#ECF0F1",
+        vBlack: "#1A1A1A",
+        gray: "#BDC3C7",
+        grayLight: "#d4d9dc",
       },
     },
   },

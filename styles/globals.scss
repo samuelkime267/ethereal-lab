@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./button.styles.scss", "./titles.styles.scss";
+
+* {
+  @apply font-space;
+}
+
+body {
+  background-color: #ecf0f1;
+}
