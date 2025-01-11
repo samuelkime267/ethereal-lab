@@ -1,7 +1,12 @@
-varying vec2 vUv;
+uniform sampler2D uTexture;
+uniform vec3 uColor;
 
 
 void main(){
-  gl_FragColor = vec4(vUv ,1. ,1.);
-  gl_FragColor = vec4(1.,1. ,1. ,1.);
+  vec4 starImg = texture2D(uTexture, gl_PointCoord);
+  vec3 finalColor = mix(uColor, starImg.rgb, vec3(0.));
+  // gl_FragColor = starImg;
+
+  gl_FragColor = vec4(finalColor ,starImg.a);
+  // gl_FragColor = vec4(gl_PointCoord ,0. ,1.);
 }
