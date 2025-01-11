@@ -11,6 +11,7 @@ import { useFrame } from "@react-three/fiber";
 export default function Background() {
   const bufferGeometryRef = useRef<THREE.BufferGeometry>(null);
   const pointsRef = useRef<THREE.Points>(null);
+  const shaderMaterialRef = useRef<THREE.ShaderMaterial>(null);
   const particleCount = 2000;
   const texture = useTexture(starTexture.src);
 
@@ -29,18 +30,38 @@ export default function Background() {
       "position",
       new THREE.BufferAttribute(positions, 3)
     );
+
+    const twinkle = new Float32Array(particleCount);
+    for (let i = 0; i < particleCount; i++) {
+      twinkle[i] = Math.random();
+    }
+    bufferGeometry.setAttribute(
+      "aTwinkle",
+      new THREE.BufferAttribute(twinkle, 1)
+    );
+
+    const twinkleSpeed = new Float32Array(particleCount);
+    for (let i = 0; i < particleCount; i++) {
+      twinkleSpeed[i] = Math.random() * 5;
+    }
+    bufferGeometry.setAttribute(
+      "aTwinkleSpeed",
+      new THREE.BufferAttribute(twinkleSpeed, 1)
+    );
   }, []);
 
   const uniforms = useMemo(() => {
     return {
       uSize: { value: 1500 },
-      uColor: { value: new THREE.Color("#ffffff") },
+      uColor: { value: new THREE.Color("#ffc37a") },
       uTexture: { value: texture },
+      uTime: { value: 0 },
     };
   }, [texture]);
 
   useFrame(({ clock: { elapsedTime } }) => {
-    if (!pointsRef.current) return;
+    if (!pointsRef.current || !shaderMaterialRef.current) return;
+
     const points = pointsRef.current;
     const curRotation = points.clone().rotation;
     points.rotation.set(
@@ -48,12 +69,15 @@ export default function Background() {
       Math.PI * elapsedTime * 0.005,
       curRotation.z
     );
+
+    shaderMaterialRef.current.uniforms.uTime.value = elapsedTime;
   });
 
   return (
     <>
       <points ref={pointsRef}>
         <shaderMaterial
+          ref={shaderMaterialRef}
           fragmentShader={starBgFragment}
           vertexShader={starBgVertex}
           uniforms={uniforms}
