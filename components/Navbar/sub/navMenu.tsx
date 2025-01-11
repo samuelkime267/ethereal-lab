@@ -26,7 +26,7 @@ export default function NavMenu({ isNavOpen, setIsNavOpen }: NavMenuType) {
 
       <ul
         className={cn(
-          "absolute right-0 bottom-0 translate-y-[calc(100%+1rem)] bg-white p-1.5 grid grid-cols-2 gap-1 w-72 rounded-lg opacity-0 duration-300 pointer-events-none",
+          "absolute right-0 bottom-0 translate-y-[calc(100%+1rem)] bg-bg p-1.5 grid grid-cols-2 gap-1 w-72 rounded-lg opacity-0 duration-300 pointer-events-none border border-grayLight",
           {
             "opacity-100 pointer-events-auto": isNavOpen,
           }
@@ -35,7 +35,7 @@ export default function NavMenu({ isNavOpen, setIsNavOpen }: NavMenuType) {
         {navLinks.map(({ link, name }, i) => (
           <li
             key={i}
-            className="w-full h-auto aspect-square bg-pri/20 hover:bg-pri/50 rounded-lg"
+            className="w-full h-auto aspect-square bg-white/10 border border-grayLight/50 hover:bg-pri duration-300 rounded-lg"
           >
             <Link
               href={link}
