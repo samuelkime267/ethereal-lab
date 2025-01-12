@@ -6,7 +6,7 @@ import starBgFragment from "../shaders/star-bg.fragment.glsl";
 import starBgVertex from "../shaders/star-bg.vertex.glsl";
 import starTexture from "@/assets/textures/star/star.png";
 import { useTexture } from "@react-three/drei";
-import { useFrame, createPortal } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 
 export default function Background() {
   const bufferGeometryRef = useRef<THREE.BufferGeometry>(null);
@@ -18,6 +18,7 @@ export default function Background() {
   useEffect(() => {
     if (!bufferGeometryRef.current) return;
     const bufferGeometry = bufferGeometryRef.current;
+    console.log({ bufferGeometry });
 
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {

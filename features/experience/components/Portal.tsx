@@ -5,9 +5,16 @@ import * as THREE from "three";
 import portalFragment from "../shaders/portal.fragment.glsl";
 import portalVertex from "../shaders/portal.vertex.glsl";
 import { useFrame, useThree } from "@react-three/fiber";
+import { RenderTexture, useFBO, useTexture } from "@react-three/drei";
+import Background from "./Background";
+import portal from "@/assets/portal.jpg";
 
 export default function Portal() {
+  const buffer = useFBO();
+  console.log(buffer.texture);
+
   const shaderMaterialRef = useRef<THREE.ShaderMaterial>(null);
+  const portalTexture = useTexture(portal.src);
   const {
     viewport: { width, height },
   } = useThree();
@@ -22,8 +29,9 @@ export default function Portal() {
   const uniforms = useMemo(() => {
     return {
       uTime: { value: 0 },
+      uBackgroundTexture: { value: portalTexture },
     };
-  }, []);
+  }, [portalTexture]);
 
   return (
     <>
@@ -33,7 +41,11 @@ export default function Portal() {
           vertexShader={portalVertex}
           fragmentShader={portalFragment}
           uniforms={uniforms}
-        />
+        >
+          <RenderTexture attach="uniforms-uBackgroundTexture-value">
+            <Background />
+          </RenderTexture>
+        </shaderMaterial>
         <planeGeometry args={[1, 1]} />
         {/* <ringGeometry args={[0, 1, 64]} /> */}
       </mesh>

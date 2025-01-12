@@ -1,4 +1,5 @@
 uniform float uTime;
+uniform sampler2D uBackgroundTexture;
 
 
 varying vec2 vUv;
@@ -94,8 +95,10 @@ void main(){
 
   vec3 finalDist = mix(noDist, col, fade);
 
+  vec4 bgImg = texture2D(uBackgroundTexture, vUv * finalDist.xy * 10.);
 
 
 
   gl_FragColor = vec4(finalDist,1.);
+  gl_FragColor = bgImg;
 }
