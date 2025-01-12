@@ -33,7 +33,7 @@ export default function Portal() {
 
   return (
     <>
-      <mesh scale={[scale, scale, 0]} position={[0, 0, -3.5]}>
+      <mesh scale={[scale, scale, 0]} position={[0, 0, -3]}>
         <shaderMaterial
           ref={shaderMaterialRef}
           vertexShader={portalVertex}
