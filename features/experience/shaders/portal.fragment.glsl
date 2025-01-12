@@ -1,5 +1,6 @@
 uniform float uTime;
-uniform sampler2D uBackgroundTexture;
+uniform sampler2D uNebulaTexture;
+uniform sampler2D uSpaceTexture;
 
 
 varying vec2 vUv;
@@ -13,7 +14,6 @@ float hash12(vec2 p) {
   p3 += dot(p3, p3.yzx + 33.33);
   return fract((p3.x + p3.y) * p3.z);
 }
-
 
 float noise(vec2 p) {
 	vec2 i = floor(p);
@@ -59,6 +59,7 @@ float voronoi(vec2 x) {
 
 
 void main(){
+  // outer portal twirl
   vec2 centeredUv = ((vUv * 2. - 1.)/2.);
   float fade =  smoothstep(0.,1.,0.08 / distance(vUv, vec2(0.5))) - 0.15;
 
@@ -70,35 +71,27 @@ void main(){
   param *= smoothstep(0.95, 0.75, 2. * length(centeredUv));
 
   // ////////////////////////////////////
+  // inner portal twirl
 
-  vec2 twirledUv = twirl(vUv, vec2(0.5), sin(uTime)*20. + 50., vec2(0.));
+  vec2 twirledUv = twirl(vUv, vec2(0.5), sin(uTime) * 10. + 50., vec2(0.));
 
   float l = sqrt(length(twirledUv));
   float a = l * 9.0 - uTime;
 
-  // vec2 newUv = cos(-vUv.x + a) * vUv + sin(a) * vec2(-vUv.y, vUv.x);
   vec2 newUv = cos(-twirledUv.x + a) * twirledUv + sin(a) * vec2(-twirledUv.y, twirledUv.x);
 
-  float n = sqrt(noise(newUv * 6.0));
-  float b = noise(35.185 - newUv * 8.0);
-  float c = 1.0 / (b + 1.0);
-  float s = smoothstep(0.3, 0.6 * c, n * (1.25 - l*l));
+  float b = noise(35.185 - newUv * 50.0);
 
-    vec3 c1 = cos(vec3(1.) * 8.0 - b) * 0.5 + 0.5;
-
-  vec3 col = c1 * s;
-
-    col = clamp(col, vec3(0), vec3(1));
+  vec3 c1 = cos(vec3(1.) * 8.0 - b) * 0.5 + 0.5;
 
   vec3 nDist = vec3(b);
   vec3 noDist = vec3(param);
 
-  vec3 finalDist = mix(noDist, col, fade);
+  vec4 nebularImg = texture2D(uNebulaTexture, vUv * c1.xy * 1.5);
+  vec4 SpaceImg = texture2D(uSpaceTexture, vUv * noDist.xy);
 
-  vec4 bgImg = texture2D(uBackgroundTexture, vUv * finalDist.xy * 10.);
+  vec4 finalImg = mix(SpaceImg, nebularImg, fade);
 
 
-
-  gl_FragColor = vec4(finalDist,1.);
-  gl_FragColor = bgImg;
+  gl_FragColor = finalImg;
 }

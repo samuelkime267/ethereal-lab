@@ -18,7 +18,6 @@ export default function Background() {
   useEffect(() => {
     if (!bufferGeometryRef.current) return;
     const bufferGeometry = bufferGeometryRef.current;
-    console.log({ bufferGeometry });
 
     const positions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
