@@ -62,6 +62,8 @@ void main(){
   // outer portal twirl
   vec2 centeredUv = ((vUv * 2. - 1.)/2.);
   float fade =  smoothstep(0.,1.,0.08 / distance(vUv, vec2(0.5))) - 0.15;
+//   float fadeEdge =  (smoothstep(0.,1.,0.25 / distance(vUv, vec2(0.5))) - 0.5) *5.;
+  float fadeEdge =  (smoothstep(0.,1.,0.235 / distance(vUv, vec2(0.5))) - 0.5) *5.;
 
   vec2 Muv = centeredUv * vec2(5., 5.);
   Muv = twirl(Muv, vec2(0., 0.), 1.95, vec2(-uTime));
@@ -93,5 +95,6 @@ void main(){
   vec4 finalImg = mix(SpaceImg, nebularImg, fade);
 
 
-  gl_FragColor = finalImg;
+  gl_FragColor = vec4(finalImg.xyz,fadeEdge);
+//   gl_FragColor = vec4(vec3(fadeEdge),1.);
 }

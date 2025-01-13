@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useEffect } from "react";
 import * as THREE from "three";
 import portalFragment from "../shaders/portal.fragment.glsl";
 import portalVertex from "../shaders/portal.vertex.glsl";
@@ -9,14 +9,20 @@ import { useTexture } from "@react-three/drei";
 import nebula from "@/assets/textures/portal/space.jpg";
 import space from "@/assets/textures/portal/galaxy.jpg";
 
+import gsap from "gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+
 export default function Portal() {
+  gsap.registerPlugin(ScrollTrigger);
+
   const shaderMaterialRef = useRef<THREE.ShaderMaterial>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   const portalTexture = useTexture([nebula.src, space.src]);
   const {
     viewport: { width, height },
   } = useThree();
 
-  const scale = width > height ? width : height;
+  const scale = (width > height ? width : height) + 1;
 
   useFrame(({ clock: { elapsedTime } }) => {
     if (!shaderMaterialRef.current) return;
@@ -31,17 +37,41 @@ export default function Portal() {
     };
   }, [portalTexture]);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!meshRef.current) return;
+      const bodyContent = document.getElementById("hero");
+      if (!bodyContent) return;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: bodyContent,
+          start: "top top",
+          end: "+=200%",
+          scrub: true,
+          pin: true,
+        },
+      });
+      tl.to(meshRef.current.scale, {
+        x: scale,
+        y: scale,
+        z: scale,
+      });
+    });
+
+    return () => ctx.revert();
+  }, [scale]);
+
   return (
     <>
-      <mesh scale={[scale, scale, 0]} position={[0, 0, -3]}>
+      <mesh ref={meshRef} scale={[3, 3, 3]} position={[0, 0, -3]}>
         <shaderMaterial
           ref={shaderMaterialRef}
           vertexShader={portalVertex}
           fragmentShader={portalFragment}
           uniforms={uniforms}
           transparent
-        ></shaderMaterial>
-        {/* <planeGeometry args={[1, 1]} /> */}
+        />
         <ringGeometry args={[0, 1, 64]} />
       </mesh>
     </>

@@ -4,9 +4,9 @@ import React, { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import starBgFragment from "../shaders/star-bg.fragment.glsl";
 import starBgVertex from "../shaders/star-bg.vertex.glsl";
-import starTexture from "@/assets/textures/star/star.png";
 import { useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
+import starTexture from "@/assets/textures/star/star.png";
 
 export default function Background() {
   const bufferGeometryRef = useRef<THREE.BufferGeometry>(null);
