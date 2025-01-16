@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 left-0 w-full py-4 px-4 z-[10000]">
-        <div className="w-full border border-grayLight flex items-center justify-between rounded-xl p-2 bg-white/5 backdrop-blur-sm">
+        <div className="w-full border border-white/20 flex items-center justify-between rounded-xl p-2 bg-white/5 backdrop-blur-sm">
           <Link href={"/"} className="uppercase font-medium text-xl">
             Ethereal Lab
           </Link>

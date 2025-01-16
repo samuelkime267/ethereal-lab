@@ -1,6 +1,6 @@
 import React from "react";
 import Background from "./Background";
-import { OrbitControls } from "@react-three/drei";
+// import { OrbitControls } from "@react-three/drei";
 import Portal from "./Portal";
 
 export default function Experience() {

@@ -22,7 +22,7 @@ export default function Portal() {
     viewport: { width, height },
   } = useThree();
 
-  const scale = (width > height ? width : height) + 1;
+  const scale = (width > height ? width : height) + 10;
 
   useFrame(({ clock: { elapsedTime } }) => {
     if (!shaderMaterialRef.current) return;
@@ -56,7 +56,13 @@ export default function Portal() {
         x: scale,
         y: scale,
         z: scale,
-      });
+      }).to(
+        meshRef.current.position,
+        {
+          y: 0,
+        },
+        "<"
+      );
     });
 
     return () => ctx.revert();
@@ -64,7 +70,12 @@ export default function Portal() {
 
   return (
     <>
-      <mesh ref={meshRef} scale={[3, 3, 3]} position={[0, 0, -3]}>
+      <mesh
+        ref={meshRef}
+        scale={[4, 4, 4]}
+        position={[0, -3.5, -3]}
+        renderOrder={10}
+      >
         <shaderMaterial
           ref={shaderMaterialRef}
           vertexShader={portalVertex}

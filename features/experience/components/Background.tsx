@@ -5,15 +5,18 @@ import * as THREE from "three";
 import starBgFragment from "../shaders/star-bg.fragment.glsl";
 import starBgVertex from "../shaders/star-bg.vertex.glsl";
 import { useTexture } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import starTexture from "@/assets/textures/star/star.png";
+import overlay from "@/assets/textures/overlay.jpg";
 
 export default function Background() {
   const bufferGeometryRef = useRef<THREE.BufferGeometry>(null);
   const pointsRef = useRef<THREE.Points>(null);
   const shaderMaterialRef = useRef<THREE.ShaderMaterial>(null);
-  const particleCount = 2000;
+  const particleCount = 5000;
   const texture = useTexture(starTexture.src);
+  const overlayTexture = useTexture(overlay.src);
+  const { gl } = useThree();
 
   useEffect(() => {
     if (!bufferGeometryRef.current) return;
@@ -52,12 +55,12 @@ export default function Background() {
 
   const uniforms = useMemo(() => {
     return {
-      uSize: { value: 1500 },
+      uSize: { value: 750 * gl.getPixelRatio() },
       uColor: { value: new THREE.Color("#ffc37a") },
       uTexture: { value: texture },
       uTime: { value: 0 },
     };
-  }, [texture]);
+  }, [texture, gl]);
 
   useFrame(({ clock: { elapsedTime } }) => {
     if (!pointsRef.current || !shaderMaterialRef.current) return;
@@ -75,6 +78,16 @@ export default function Background() {
 
   return (
     <>
+      <mesh position={[0, 0, 0]} scale={[10, 10, 10]} renderOrder={11}>
+        <planeGeometry args={[2, 1]} />
+        <meshBasicMaterial
+          map={overlayTexture}
+          transparent
+          opacity={0.15}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+
       <points ref={pointsRef}>
         <shaderMaterial
           ref={shaderMaterialRef}
