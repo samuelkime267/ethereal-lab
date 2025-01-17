@@ -25,7 +25,7 @@ export default function Navbar() {
           </div>
 
           <div className="w-fit h-full flex items-center justify-center flex-row-reverse gap-2 md:flex-col md:border-l border-l-white/20 p-2 relative nav-menu-holder overflow-hidden rounded-r-xl backdrop-blur-sm max-md:before:hidden">
-            <NavMenu isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+            <NavMenu setIsNavOpen={setIsNavOpen} />
             <SoundBar />
           </div>
         </div>
