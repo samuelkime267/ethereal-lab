@@ -1,8 +1,18 @@
 button {
   &.primary {
-    @apply py-2.5 px-4 bg-pri hover:bg-priDark capitalize font-medium rounded-lg text-lg duration-300 hover:text-white;
+    @apply py-2 px-4 border border-white/20 rounded-xl capitalize relative overflow-hidden  hover:border-pri z-[2] text-white hover:text-pri duration-300;
+
+    &::before {
+      content: "";
+      box-shadow: inset 0px 0px 10px 2px rgba(255, 255, 255, 0.1);
+      @apply absolute top-0 left-0 w-full h-full;
+    }
+
+    &:hover::before {
+      box-shadow: inset 0px 0px 10px 2px rgba(255, 114, 37, 0.75);
+    }
   }
   &.secondary {
-    @apply py-2.5 px-4 bg-grayLight hover:bg-gray duration-300 capitalize font-medium rounded-lg text-lg;
+    @apply py-2 px-4 bg-white/20 hover:bg-white duration-300 capitalize rounded-lg hover:text-pri;
   }
 }

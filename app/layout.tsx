@@ -20,6 +20,7 @@ export default function RootLayout({
         <body className={`${fonts} antialiased`}>
           <main id="body-content">
             <Navbar />
+
             {children}
             <Footer />
           </main>

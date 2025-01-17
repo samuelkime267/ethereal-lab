@@ -22,11 +22,11 @@ export default function Portal() {
     viewport: { width, height },
   } = useThree();
 
-  const scale = (width > height ? width : height) + 10;
+  const scale = (width > height ? width : height) + 1.5;
 
   useFrame(({ clock: { elapsedTime } }) => {
     if (!shaderMaterialRef.current) return;
-    shaderMaterialRef.current.uniforms.uTime.value = elapsedTime;
+    shaderMaterialRef.current.uniforms.uTime.value = elapsedTime / 3;
   });
 
   const uniforms = useMemo(() => {
@@ -39,29 +39,32 @@ export default function Portal() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (!meshRef.current) return;
-      const bodyContent = document.getElementById("hero");
-      if (!bodyContent) return;
+      const heroSection = document.getElementById("hero");
+      if (!meshRef.current || !heroSection) return;
+
+      const q = gsap.utils.selector(heroSection);
+      const heroDesc = q(".hero-desc");
+      const heroTitle = q(".hero-title");
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: bodyContent,
+          trigger: heroSection,
           start: "top top",
           end: "+=200%",
-          scrub: true,
+          scrub: 1.2,
+          // markers: true,
           pin: true,
         },
       });
-      tl.to(meshRef.current.scale, {
-        x: scale,
-        y: scale,
-        z: scale,
-      }).to(
-        meshRef.current.position,
+      tl.to(heroTitle, { opacity: 0 }).to(heroDesc, { opacity: 0 }, "<").to(
+        meshRef.current.scale,
         {
-          y: 0,
+          x: scale,
+          y: scale,
+          z: scale,
+          duration: 1,
         },
-        "<"
+        "-=0.4"
       );
     });
 
@@ -72,8 +75,8 @@ export default function Portal() {
     <>
       <mesh
         ref={meshRef}
-        scale={[4, 4, 4]}
-        position={[0, -3.5, -3]}
+        scale={[3.2, 3.2, 3.2]}
+        position={[0, 0, -3]}
         renderOrder={10}
       >
         <shaderMaterial

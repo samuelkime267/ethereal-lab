@@ -12,7 +12,7 @@ const config: Config = {
         space: "var(--space-grotesk)",
       },
       colors: {
-        pri: "#fe431b",
+        pri: "#ff7225",
         sec: "#5b71db",
         priDark: "#6d200f",
         bg: "#070f1c",

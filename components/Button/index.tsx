@@ -7,15 +7,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btnType?: btnType;
 }
 
-export default function Button({
-  btnType,
-  className,
-  children,
-  ...props
-}: ButtonProps) {
-  return (
-    <button className={cn(btnType, className)} {...props}>
-      {children}
-    </button>
-  );
-}
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ btnType, className, children, ...props }, ref) => {
+    return (
+      <button ref={ref} className={cn(btnType, className)} {...props}>
+        {children}
+      </button>
+    );
+  }
+);
+
+Button.displayName = "Button";
+
+export default Button;

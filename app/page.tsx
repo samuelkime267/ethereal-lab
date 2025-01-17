@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <CanvasContainer />
-      <main className="relative z-[1] pointer-events-none">
+      <main className="relative z-[2]">
         <Hero />
         <About />
         <Projects />

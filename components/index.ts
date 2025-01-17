@@ -5,5 +5,6 @@ import Footer from "./Footer";
 import Hero from "./Hero";
 import Projects from "./Projects";
 import Button from "./Button";
+import Section from "./Section";
 
-export { Navbar, About, Contact, Footer, Hero, Projects, Button };
+export { Navbar, About, Contact, Footer, Hero, Projects, Button, Section };

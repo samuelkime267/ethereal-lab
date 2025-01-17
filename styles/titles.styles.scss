@@ -1,21 +1,31 @@
 h1 {
+  color: white;
   @apply text-6xl md:text-7xl lg:text-8xl xl:text-9xl;
 }
 h2 {
+  color: white;
   @apply text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
 }
 h3 {
+  color: white;
   @apply text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
 }
 h4 {
+  color: white;
   @apply text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
 }
 h5 {
+  color: white;
   @apply text-2xl md:text-3xl lg:text-4xl xl:text-5xl;
 }
 h6 {
+  color: white;
   @apply text-xl md:text-2xl lg:text-3xl xl:text-4xl;
 }
+p {
+  color: white;
+}
 small {
+  color: white;
   @apply text-sm;
 }

@@ -1,3 +1,4 @@
-import { cn } from "./functions/cn";
+import cn from "./functions/cn";
+import useWindowSize from "./hooks/useWindowSize";
 
-export { cn };
+export { cn, useWindowSize };
