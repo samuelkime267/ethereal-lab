@@ -3,9 +3,11 @@ uniform float uTime;
 
 varying vec2 vUv;
 varying float vTwinkle;
+varying vec3 vColor;
 
 attribute float aTwinkle;
 attribute float aTwinkleSpeed;
+attribute vec3 aColor;
 
 
 float PI = 3.141592653589793238;
@@ -13,6 +15,7 @@ float PI = 3.141592653589793238;
 
 void main() {
   vUv = uv;
+  vColor = aColor;
 
   float twinkleScale = uSize * aTwinkle * clamp(sin(uTime * aTwinkleSpeed), 0.1, 1.);
 

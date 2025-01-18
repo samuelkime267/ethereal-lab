@@ -17,6 +17,9 @@ export default function Background() {
   const texture = useTexture(starTexture.src);
   const overlayTexture = useTexture(overlay.src);
   const { gl } = useThree();
+  const colors = useMemo(() => {
+    return ["#ffffff", "#69fefe", "#ffc37a"];
+  }, []);
 
   useEffect(() => {
     if (!bufferGeometryRef.current) return;
@@ -51,12 +54,23 @@ export default function Background() {
       "aTwinkleSpeed",
       new THREE.BufferAttribute(twinkleSpeed, 1)
     );
-  }, []);
+
+    const color = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      const randomNum = Math.random();
+      const colorI = randomNum < 0.7 ? 0 : randomNum < 0.9 ? 2 : 1;
+      const vecColor = new THREE.Color(colors[colorI]);
+      color[i3 + 0] = vecColor.r; // r
+      color[i3 + 1] = vecColor.g; // g
+      color[i3 + 2] = vecColor.b; // b
+    }
+    bufferGeometry.setAttribute("aColor", new THREE.BufferAttribute(color, 3));
+  }, [colors]);
 
   const uniforms = useMemo(() => {
     return {
       uSize: { value: 750 * gl.getPixelRatio() },
-      uColor: { value: new THREE.Color("#ffc37a") },
       uTexture: { value: texture },
       uTime: { value: 0 },
     };
@@ -95,6 +109,7 @@ export default function Background() {
           vertexShader={starBgVertex}
           uniforms={uniforms}
           transparent
+          blending={THREE.AdditiveBlending}
         />
         <bufferGeometry ref={bufferGeometryRef} />
       </points>

@@ -51,21 +51,26 @@ export default function Portal() {
           trigger: heroSection,
           start: "top top",
           end: "+=200%",
-          scrub: 1.2,
+          scrub: true,
           // markers: true,
           pin: true,
         },
       });
-      tl.to(heroTitle, { opacity: 0 }).to(heroDesc, { opacity: 0 }, "<").to(
-        meshRef.current.scale,
-        {
-          x: scale,
-          y: scale,
-          z: scale,
-          duration: 1,
-        },
-        "-=0.4"
-      );
+      tl.to(heroTitle, { opacity: 0 })
+        .to(heroDesc, { opacity: 0 }, "<")
+        .to(
+          meshRef.current.scale,
+          {
+            x: scale,
+            y: scale,
+            z: scale,
+            duration: 1,
+          },
+          "-=0.4"
+        )
+        .set(meshRef.current, {
+          visible: false,
+        });
     });
 
     return () => ctx.revert();

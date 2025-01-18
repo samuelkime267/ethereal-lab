@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 left-0 w-full h-full py-4 px-4 z-[10000] pointer-events-none">
-        <div className="w-full md:h-full border border-white/20 flex items-start justify-between rounded-xl nav-menu-holder relative overflow-hidden md:before:hidden">
+        <div className="w-full md:h-full border border-white/20 flex items-start justify-between rounded-xl nav-menu-holder relative overflow-hidden md:before:hidden max-md:backdrop-blur-sm">
           <div className="p-2 md:border-b border-b-white/20 md:w-full relative nav-menu-holder md:backdrop-blur-sm rounded-tl-xl overflow-hidden max-md:before:hidden">
             <Link
               href={"/"}
@@ -24,7 +24,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="w-fit h-full flex items-center justify-center flex-row-reverse gap-2 md:flex-col md:border-l border-l-white/20 p-2 relative nav-menu-holder overflow-hidden rounded-r-xl backdrop-blur-sm max-md:before:hidden">
+          <div className="w-fit h-full flex items-center justify-center flex-row-reverse gap-2 md:flex-col md:border-l border-l-white/20 p-2 relative nav-menu-holder overflow-hidden rounded-r-xl md:backdrop-blur-sm max-md:before:hidden">
             <NavMenu setIsNavOpen={setIsNavOpen} />
             <SoundBar />
           </div>

@@ -11,8 +11,8 @@ export default function CanvasContainer() {
     <div className="fixed top-0 left-0 w-full h-full">
       <Leva collapsed />
       <Canvas
-        dpr={[1, 2]}
-        // dpr={1}
+        // dpr={[1, 2]}
+        dpr={1}
         camera={{ fov: 45, position: [0, 0, 5] }}
       >
         <Stats />
